@@ -17,20 +17,14 @@ Base.metadata.create_all(engine)
 
 @app.route('/login', methods=['POST'])
 def get_users():
-    # fetching from the database
     session = Session()
-    #user_objects = session.query(User).filter(User.username==).filter(User.check_password())
-    user_objects = session.query(User).filter(User.username=='javier@gmail.com').count()
-    if (user_objects > 0): 
-        #transforming into JSON-serializable objects
-        schema = UserSchema(many=True)
-        users = schema.dump(user_objects)
-        # serializing as JSON
-        session.close()
-        return jsonify(users)
-    # else:
-    #     abort(403)
-
+    luser = session.query(User).filter(User.username==request.get_json()['username'])
+    session.close()
+    for user in luser:
+        new_user = UserSchema().dump(user)
+        new_user['password'] = ''
+        return jsonify(new_user),201
+    
 @app.route('/register', methods=['POST'])
 def add_user():
     # mount user object
@@ -46,6 +40,7 @@ def add_user():
 
     # return created user
     new_user = UserSchema().dump(user)
+    new_user['password'] = ''
     session.close()
     return jsonify(new_user), 201
 
