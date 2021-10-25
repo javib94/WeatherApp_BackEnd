@@ -1,10 +1,12 @@
 # coding=utf-8
-
+import requests
+import json
 from flask import Flask, jsonify, request, abort
 from logging import debug
 from .entities.entity import Session, engine, Base
 from .entities.user import User, UserSchema
 from flask_cors import CORS
+
 
 # creating the Flask application
 app = Flask(__name__)
@@ -44,3 +46,19 @@ def add_user():
     session.close()
     return jsonify(new_user), 201
 
+@app.route('/currentweather', methods=['POST'])
+def get_current():
+    #session = Session()
+    #luser = session.query(User).filter(User.username==request.get_json()['username'])
+    #esto servira para escribir un log de la consulta 
+    userdata = request.get_json()
+    api_key = "033543edb64c3da524b3a8bedf52c37c"
+    lat = "48.208176"
+    lon = "16.373819"
+    units = "metric"
+    lang = "es"
+    url = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=%s&lang=%s" % (lat, lon, api_key, units, lang)
+
+    response = requests.get(url)
+    data = json.loads(response.text)
+    return data, 201
