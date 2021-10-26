@@ -53,8 +53,8 @@ def get_current():
     #esto servira para escribir un log de la consulta 
     userdata = request.get_json()
     api_key = "033543edb64c3da524b3a8bedf52c37c"
-    lat = "48.208176"
-    lon = "16.373819"
+    lat = userdata['latitud']
+    lon = userdata['longitud']
     units = "metric"
     lang = "es"
     url = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=%s&lang=%s" % (lat, lon, api_key, units, lang)
