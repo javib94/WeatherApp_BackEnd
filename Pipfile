@@ -10,6 +10,7 @@ marshmallow = "*"
 mariadb = "*"
 flask-cors = "*"
 werkzeug = "*"
+requests = "*"
 
 [dev-packages]
 
