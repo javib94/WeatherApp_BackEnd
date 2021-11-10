@@ -1,8 +1,7 @@
 # coding=utf-8
 import requests
 import json
-from flask import Flask, jsonify, request, abort
-from logging import debug
+from flask import Flask, jsonify, request
 from .entities.entity import Session, engine, Base
 from .entities.user import User, UserSchema
 from flask_cors import CORS
