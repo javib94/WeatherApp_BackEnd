@@ -3,6 +3,8 @@ import requests
 import json
 from flask import Flask, jsonify, request, abort
 from logging import debug
+
+from sqlalchemy.sql.type_api import UserDefinedType
 from .entities.entity import Session, engine, Base
 from .entities.user import User, UserSchema
 from flask_cors import CORS
@@ -53,6 +55,7 @@ def get_current():
     #esto servira para escribir un log de la consulta 
     userdata = request.get_json()
     api_key = "033543edb64c3da524b3a8bedf52c37c"
+    print(userdata)
     lat = userdata['latitud']
     lon = userdata['longitud']
     units = "metric"
