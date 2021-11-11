@@ -6,7 +6,8 @@ from logging import debug
 from .entities.entity import Session, engine, Base
 from .entities.user import User, UserSchema
 from flask_cors import CORS
-import config
+from .configuration.config import weatherapi 
+import logging
 
 # creating the Flask application
 app = Flask(__name__)
@@ -52,13 +53,13 @@ def get_current():
     #luser = session.query(User).filter(User.username==request.get_json()['username'])
     #esto servira para escribir un log de la consulta 
     userdata = request.get_json()
-    api_key = config.weatherapi["api_key"]
+    api_key = weatherapi["api_key"]
     lat = userdata['latitud']
     lon = userdata['longitud']
     units = "metric"
     lang = "es"
     url = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=%s&lang=%s" % (lat, lon, api_key, units, lang)
-
+    logging.warning("Consulta del clima para el usuario " + userdata['username']) 
     response = requests.get(url)
     data = json.loads(response.text)
     return data, 201
