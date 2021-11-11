@@ -5,12 +5,13 @@ from sqlalchemy import create_engine, Column, String, Integer, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
+import config
 
-db_url = os.environ.get('DB_URL')
-db_port = os.environ.get('DB_PORT')
-db_name = os.environ.get('DB_NAME')
-db_user = os.environ.get('DB_USER')
-db_password = os.environ.get('DB_PASSWORD')
+db_url = config.database["url"]
+db_port = config.database["port"]
+db_name = config.database["name"]
+db_user = config.database["user"]
+db_password = config.database["password"]
 engine = create_engine(f'mariadb+mariadbconnector://{db_user}:{db_password}@{db_url}:{db_port}/{db_name}')
 
 Session = sessionmaker()

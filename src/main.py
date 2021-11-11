@@ -6,7 +6,7 @@ from logging import debug
 from .entities.entity import Session, engine, Base
 from .entities.user import User, UserSchema
 from flask_cors import CORS
-
+import config
 
 # creating the Flask application
 app = Flask(__name__)
@@ -52,7 +52,7 @@ def get_current():
     #luser = session.query(User).filter(User.username==request.get_json()['username'])
     #esto servira para escribir un log de la consulta 
     userdata = request.get_json()
-    api_key = "033543edb64c3da524b3a8bedf52c37c"
+    api_key = config.weatherapi["api_key"]
     lat = userdata['latitud']
     lon = userdata['longitud']
     units = "metric"
