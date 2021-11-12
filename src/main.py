@@ -29,12 +29,8 @@ def get_users():
     
 @app.route('/register', methods=['POST'])
 def add_user():
-    # mount user object
-    #print("json del request", request.get_json())
     posted_user = UserSchema(only=('username', 'name', 'password', 'latitud', 'longitud')).load(request.get_json())
-
     user = User(**posted_user, created_by="HTTP post request")
-
     # persist user
     session = Session()
     session.add(user)
