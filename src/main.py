@@ -54,6 +54,7 @@ def get_current():
     units = "metric"
     lang = "es"
     url = "https://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&appid=%s&units=%s&lang=%s" % (lat, lon, api_key, units, lang)
+    #Agregando un log. 
     logging.warning("Consulta del clima para el usuario " + userdata['username']) 
     response = requests.get(url)
     data = json.loads(response.text)
